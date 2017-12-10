@@ -12,6 +12,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
 
 import java.io.BufferedInputStream;
@@ -52,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(loginContext, "Invalid email or password.", Toast.LENGTH_SHORT).show();
                     else
                     {
-                        new HttpHandler().execute("https://store.karkhana.asia");
+                        new HttpHandler().execute("http://192.168.100.236:8000/test");
                     }
                 }
             }
@@ -97,10 +99,14 @@ public class LoginActivity extends AppCompatActivity {
                     buffer.append(line);
                 }
 
+                String response = buffer.toString();
+
+                JSONObject jsonObject = new JSONObject(response);
+
                 return buffer.toString();
-            } catch (IOException e) {
+            } catch (IOException | JSONException e) {
                 e.printStackTrace();
-            }finally {
+            } finally {
 
                 if ( connection != null )
                     connection.disconnect();
