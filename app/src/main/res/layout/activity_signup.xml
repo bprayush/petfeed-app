@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bugthedebugger.petfeed_test.SignupActivity"
+    android:padding="20dp"
+    android:layout_centerInParent="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/nameLl"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/nameTv"
+            android:text="@string/name"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/nameEt"
+            android:hint="@string/rajesh_hamal"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/emailLl"
+        android:layout_below="@+id/nameLl"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/emalTv"
+            android:text="Email:"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/emailEt"
+            android:inputType="textEmailAddress"
+            android:hint="E.g. rajDai@gmail.com"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/passwordLl"
+        android:layout_below="@+id/emailLl"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/passwordTv"
+            android:text="Password:"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/passwordEt"
+            android:inputType="textPassword"
+            android:hint="@string/pwd_asteriks"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/repasswordLl"
+        android:layout_below="@+id/passwordLl"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/repasswordTv"
+            android:text="Password:"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/repasswordEt"
+            android:inputType="textPassword"
+            android:hint="@string/pwd_asteriks"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/locationLl"
+        android:layout_below="@+id/repasswordLl"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/locationTv"
+            android:text="@string/address"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/locationEt"
+            android:inputType="textAutoComplete"
+            android:hint="@string/e_g_sallaghari_bhaktapur"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/petLl"
+        android:layout_below="@+id/locationLl"
+        tools:ignore="UselessParent">
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/petTv"
+            android:text="Pet Name:"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/petEt"
+            android:inputType="textAutoComplete"
+            android:hint="@string/e_g_bruno"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/petLl"
+        android:id="@+id/submitLl"
+        android:layout_centerInParent="true">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/submitBt"
+            android:text="@string/submit"/>
+
+    </LinearLayout>
+
+
+</RelativeLayout>
+

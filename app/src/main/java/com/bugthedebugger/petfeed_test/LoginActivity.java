@@ -1,35 +1,33 @@
 package com.bugthedebugger.petfeed_test;
 
-import android.app.ActionBar;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 public class LoginActivity extends AppCompatActivity {
 
     private Context loginContext = this;
-    private TextView testView;
-    private ProgressBar progressBar;
+    TextView testView;
+    private ProgressDialog progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +37,12 @@ public class LoginActivity extends AppCompatActivity {
         final EditText emailEt = findViewById(R.id.emailEt);
         final EditText passwordEt = findViewById(R.id.passwordEt);
 
-        String email;
-        String password;
         testView = findViewById(R.id.testText);
-        progressBar = findViewById(R.id.progress);
-        progressBar.setVisibility(View.GONE);
+        progressBar = new ProgressDialog(loginContext);
 
-        Button loginButton = findViewById(R.id.loginBtn);
+        final Button loginButton = findViewById(R.id.loginBtn);
+        final Button signupButton = findViewById(R.id.signupBtn);
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,8 +51,26 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(loginContext, "Invalid email or password.", Toast.LENGTH_SHORT).show();
                     else
                     {
-                        new HttpHandler().execute("http://192.168.100.236:8000/test");
+                        String email = emailEt.getText().toString();
+                        String password = passwordEt.getText().toString();
+                        new HttpHandler().execute("https://prayush.karkhana.asia/test/login?email="+email+"&password="+password);
                     }
+                }
+            }
+        });
+
+        signupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if( view.getId() == R.id.signupBtn )
+                {
+//                    Intent intent = new Intent(loginContext, SignupActivity.class);
+//                    startActivity(intent);
+//
+//                    finish();
+                    Toast.makeText(loginContext, "SIGN UP", Toast.LENGTH_LONG).show();
+                    Intent intent  = new Intent(LoginActivity.this, SignupActivity.class);
+                    startActivity(intent);
                 }
             }
         });
@@ -64,82 +79,87 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private boolean verifyEmail(String email){
-        if ( email.contains("@") )
-                return true;
-        else
-            return false;
+        return email.contains("@");
     }
 
     private boolean verifyPassword(String password){
-        if ( password.length() < 4 )
-            return false;
-        else
-            return true;
+        return password.length() >= 4;
     }
 
 
-    public class HttpHandler extends AsyncTask<String, Integer, String>{
+    public class HttpHandler extends AsyncTask<String, Void, Void>{
+
 
         @Override
-        protected String doInBackground(String... urls) {
-            HttpURLConnection connection = null;
-            URL url = null;
-            InputStream stream = null;
-            BufferedReader reader = null;
-            try {
-                url = new URL(urls[0]);
-                connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-                stream = connection.getInputStream();
-                reader = new BufferedReader(new InputStreamReader(stream));
+        protected Void doInBackground(String... urls) {
+            RequestQueue requestQueue = Volley.newRequestQueue(loginContext);
+            String url = urls[0];
 
-                StringBuilder buffer = new StringBuilder();
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    buffer.append(line);
+            final JSONObject[] tempObject = new JSONObject[1];
+
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                tempObject[0] = new JSONObject(response);
+
+                                String status = tempObject[0].getString("status");
+                                String message = tempObject[0].getString("message");
+
+
+                                if ( status.equals("success") ) {
+                                    String userName = tempObject[0].getString("name");
+                                    String email = tempObject[0].getString("email");
+                                    String pet = tempObject[0].getString("pet");
+                                    int userId = tempObject[0].getInt("id");
+
+                                    Intent intent = new Intent(loginContext, PetfeedActivity.class);
+                                    intent.putExtra("name", userName);
+                                    intent.putExtra("email", email);
+                                    intent.putExtra("id", userId);
+                                    intent.putExtra("pet", pet);
+
+                                    startActivity(intent);
+                                    Toast.makeText(loginContext, "Login successful.", Toast.LENGTH_LONG).show();
+                                    progressBar.dismiss();
+                                    finish();
+                                }
+                                else {
+                                    Toast.makeText(loginContext, message, Toast.LENGTH_LONG).show();
+                                    progressBar.dismiss();
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                                Toast.makeText(loginContext, e.toString(), Toast.LENGTH_SHORT).show();
+                                progressBar.dismiss();
+                            }
+                            // Log.d("prayush", response);
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    // Log.d("prayush", error.toString() );
+                    progressBar.dismiss();
+                    Toast.makeText(loginContext, "Trouble accessing the internet, check you network connection", Toast.LENGTH_LONG
+                    ).show();
                 }
 
-                String response = buffer.toString();
+            });
 
-                JSONObject jsonObject = new JSONObject(response);
-
-                return buffer.toString();
-            } catch (IOException | JSONException e) {
-                e.printStackTrace();
-            } finally {
-
-                if ( connection != null )
-                    connection.disconnect();
-
-                try {
-                    if( reader != null )
-                        reader.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
+            requestQueue.add(stringRequest);
             return null;
         }
 
         @Override
-        protected void onProgressUpdate(Integer... values) {
-            super.onProgressUpdate(values);
-            progressBar.setVisibility(View.VISIBLE);
-        }
-
-        @Override
         protected void onPreExecute() {
+            progressBar.setMessage("Processing please wait.");
+            progressBar.show();
+
             super.onPreExecute();
-            progressBar.setVisibility(View.VISIBLE);
         }
 
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            testView.setText(s);
-            progressBar.setVisibility(View.GONE);
-        }
     }
 
 }
