@@ -28,43 +28,45 @@ import java.util.Objects;
 public class SignupActivity extends AppCompatActivity {
 
     private Context signupContext = this;
-    ProgressDialog progressBar = new ProgressDialog(this);
+    ProgressDialog progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
+        progressBar = new ProgressDialog(this);
+
         final EditText name = findViewById(R.id.nameEt);
-        final EditText email = findViewById(R.id.emailEt);
-        final EditText pwd = findViewById(R.id.passwordEt);
+        final EditText email = findViewById(R.id.semailEt);
+        final EditText pwd = findViewById(R.id.spasswordEt);
         final EditText rePwd = findViewById(R.id.repasswordEt);
         final EditText address = findViewById(R.id.locationEt);
         final EditText pet = findViewById(R.id.petEt);
 
-        Button submitBtn = findViewById(R.id.signupBtn);
+        Button submitBtn = findViewById(R.id.submitBt);
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int flag = 0;
-                if( view.getId() == R.id.signupBtn )
+                if( view.getId() == R.id.submitBt )
                 {
-                    if ( validateName(name.toString()) &&  validateEmail(email.toString())
-                            && validateAddress(address.toString()) && validatePet(pet.toString()))
+                    if ( validateName(name.getText().toString()) &&  validateEmail(email.getText().toString())
+                            && validateAddress(address.getText().toString()) && validatePet(pet.getText().toString()))
                     {
                         flag = 1;
                     }
-                    else
-                        Toast.makeText(signupContext, "One or more fields can't be left empty",
-                                Toast.LENGTH_LONG).show();
+                    else {
+                        Toast.makeText(signupContext, "One or more fields can't be left empty.", Toast.LENGTH_SHORT).show();
+                    }
 
                     if ( flag == 1 )
                     {
-                        if( validatePwd(pwd.toString(), rePwd.toString()) ){
-                            String registerUrl = "http://localhost:8000/test/register?"+"email="+
-                                    email.toString()+"&password="+pwd.toString()+
-                                    "&name="+name.toString()+"&pet="+pet.toString()+
-                                    "&address="+address.toString();
+                        if( validatePwd(pwd.getText().toString(), rePwd.getText().toString()) ){
+                            String registerUrl = "https://prayush.karkhana.asia/test/register?"+"email="+
+                                    email.getText().toString()+"&password="+pwd.getText().toString()+
+                                    "&name="+name.getText().toString()+"&pet="+pet.getText().toString()+
+                                    "&address="+address.getText().toString();
                             new SignUpHandler().execute(registerUrl);
                         }
                         else{
@@ -79,7 +81,10 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private boolean validateName(String name){
-        return !name.isEmpty();
+        if( name.length() <= 0 )
+            return false;
+        else
+            return true;
     }
 
     private boolean validateEmail(String email){
@@ -91,12 +96,19 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private boolean validateAddress(String address){
-        return address.length() > 4;
+
+        if ( address.length() < 4 )
+            return false;
+        else
+            return true;
     }
 
     private boolean validatePet(String pet)
     {
-        return pet.length()>1;
+        if( pet.length() > 2 )
+            return true;
+        else
+            return false;
     }
 
     public class SignUpHandler extends AsyncTask<String, Void, Void>{
@@ -117,7 +129,7 @@ public class SignupActivity extends AppCompatActivity {
                                 Log.d("Prayush", response);
                                 tempObject[0] = new JSONObject(response);
 
-                                String status = tempObject[0].getString("success");
+                                String status = tempObject[0].getString("status");
                                 String message = tempObject[0].getString("message");
 
                                 if (status.equals("success")) {
@@ -143,7 +155,8 @@ public class SignupActivity extends AppCompatActivity {
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
-                                Toast.makeText(signupContext, e.toString(), Toast.LENGTH_SHORT).show();
+                                //Log.d("prayush", e.getMessage());
+                                // Toast.makeText(signupContext, e.getMessage(), Toast.LENGTH_LONG).show();
                                 progressBar.dismiss();
                             }
 

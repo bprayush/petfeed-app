@@ -47,7 +47,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/emailEt"
+            android:id="@+id/semailEt"
             android:inputType="textEmailAddress"
             android:hint="E.g. rajDai@gmail.com"/>
 
@@ -71,7 +71,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/passwordEt"
+            android:id="@+id/spasswordEt"
             android:inputType="textPassword"
             android:hint="@string/pwd_asteriks"/>
 

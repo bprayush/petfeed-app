@@ -64,13 +64,10 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if( view.getId() == R.id.signupBtn )
                 {
-//                    Intent intent = new Intent(loginContext, SignupActivity.class);
-//                    startActivity(intent);
-//
-//                    finish();
                     Toast.makeText(loginContext, "SIGN UP", Toast.LENGTH_LONG).show();
                     Intent intent  = new Intent(LoginActivity.this, SignupActivity.class);
                     startActivity(intent);
+                    finish();
                 }
             }
         });
