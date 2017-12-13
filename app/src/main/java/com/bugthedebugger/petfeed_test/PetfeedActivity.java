@@ -3,6 +3,7 @@ package com.bugthedebugger.petfeed_test;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,6 +13,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.pusher.rest.Pusher;
+
+import java.util.Collections;
+
+//import com.pusher.rest.Pusher;
+//
+//import java.util.Collections;
+
+//import com.pusher.client.Pusher;
+
+//import com.pusher.client.Pusher;
+//
+//import com.pusher.client.PusherOptions;
+//import com.pusher.client.channel.Channel;
+//import com.pusher.client.channel.SubscriptionEventListener;
+
 
 public class PetfeedActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -23,15 +41,6 @@ public class PetfeedActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -40,6 +49,28 @@ public class PetfeedActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+//        Pusher pusher = new Pusher("0053280ec440a78036bc");
+//        Channel channel = pusher.subscribe("prayush");
+//
+//        PusherOptions options = new PusherOptions();
+//
+//
+//        channel.bind("my-event", new SubscriptionEventListener() {
+//            @Override
+//            public void onEvent(String channelName, String eventName, final String data) {
+//                Log.d("pusher", data);
+//            }
+//        });
+//
+//        pusher.connect();
+//
+        Pusher pusher = new Pusher("440480", "0053280ec440a78036bc", "7bbae18dfe3989d432a6");
+        pusher.setEncrypted(true);
+
+        pusher.trigger("my-channel", "my-event", Collections.singletonMap("message", "hello world"));
+
     }
 
     @Override
