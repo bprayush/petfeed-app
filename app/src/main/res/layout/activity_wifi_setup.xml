@@ -6,4 +6,148 @@
     android:layout_height="match_parent"
     tools:context="com.bugthedebugger.petfeed_test.WifiSetupActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/hotspotLl"
+            android:gravity="center"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/hot_spot_info"
+                android:textSize="20dp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#F0F0F0"
+            android:layout_below="@+id/hotspotLl"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/hotspotLl"
+            android:id="@+id/ssidLl"
+            android:layout_margin="5dp">
+
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_hardware_hotspot"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" SSID:"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" PetFeed"
+                android:textSize="20dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ssidLl"
+            android:id="@+id/wifiPwdLl"
+            android:layout_margin="5dp">
+
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_closed_lock"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" Password:"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="petfeed123"
+                android:textSize="20dp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#f0f0f0"
+            android:layout_below="@+id/wifiPwdLl"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:text="Your wifi name:"
+            android:layout_below="@id/wifiPwdLl"
+            android:layout_marginTop="25dp"
+            android:textStyle="bold"
+            android:id="@+id/wifiTv"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="My Awesome Wifi name"
+            android:layout_below="@id/wifiTv"
+            android:id="@+id/ssidEt"
+            android:inputType="textEmailAddress"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ssidEt"
+            android:text="Your wifi password:"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:id="@+id/keyTv"/>
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/keyTv"
+            android:id="@+id/keyEt"
+            android:inputType="textPassword"
+            android:hint="The password is secret ssshh..."/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/keyEt"
+            android:layout_centerHorizontal="true"
+            android:text="SET DEVICE WIFI"
+            android:id="@+id/setDeviceWifiBtn"/>
+
+    </RelativeLayout>
+
 </android.support.constraint.ConstraintLayout>
