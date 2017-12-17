@@ -3,6 +3,7 @@ package com.bugthedebugger.petfeed_test;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,11 +29,15 @@ public class LoginActivity extends AppCompatActivity {
     private Context loginContext = this;
     TextView testView;
     private ProgressDialog progressBar;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        sharedPref = loginContext.getSharedPreferences(getString(R.string.preference_file_key),
+                loginContext.MODE_PRIVATE);
 
         final EditText emailEt = findViewById(R.id.emailEt);
         final EditText passwordEt = findViewById(R.id.passwordEt);
@@ -53,7 +58,30 @@ public class LoginActivity extends AppCompatActivity {
                     {
                         String email = emailEt.getText().toString();
                         String password = passwordEt.getText().toString();
-                        new HttpHandler().execute("https://prayush.karkhana.asia/test/login?email="+email+"&password="+password);
+
+                        String savedEmail = sharedPref.getString("email", "");
+                        String savedPassword = sharedPref.getString("password", "");
+
+                        if( savedEmail.equals(email) &&  savedPassword.equals(password) )
+                        {
+                            String savedUser = sharedPref.getString("user", "");
+                            int savedId = sharedPref.getInt("id", 0);
+                            String savedPet = sharedPref.getString("pet", "");
+
+                            Intent intent = new Intent(loginContext, PetfeedActivity.class);
+                            intent.putExtra("name", savedUser);
+                            intent.putExtra("email", savedEmail);
+                            intent.putExtra("id", savedId);
+                            intent.putExtra("pet", savedPet);
+
+                            startActivity(intent);
+                            finish();
+                        }
+                        else
+                        {
+                            new HttpHandler().execute("https://prayush.karkhana.asia/test/login?email="+email+"&password="+password, password);
+                        }
+
                     }
                 }
             }
@@ -91,6 +119,7 @@ public class LoginActivity extends AppCompatActivity {
         protected Void doInBackground(String... urls) {
             RequestQueue requestQueue = Volley.newRequestQueue(loginContext);
             String url = urls[0];
+            final String passedPwd = urls[1];
 
             final JSONObject[] tempObject = new JSONObject[1];
 
@@ -116,6 +145,14 @@ public class LoginActivity extends AppCompatActivity {
                                     intent.putExtra("email", email);
                                     intent.putExtra("id", userId);
                                     intent.putExtra("pet", pet);
+
+                                    SharedPreferences.Editor editor = sharedPref.edit();
+                                    editor.putString("email", email);
+                                    editor.putString("password", passedPwd);
+                                    editor.putString("user", userName);
+                                    editor.putString("pet", pet);
+                                    editor.putInt("id", userId);
+                                    editor.commit();
 
                                     startActivity(intent);
                                     Toast.makeText(loginContext, "Login successful.", Toast.LENGTH_LONG).show();

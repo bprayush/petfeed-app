@@ -123,7 +123,6 @@
                 android:id="@+id/globalStatusTv"
                 android:text="offline"
                 android:textSize="20dp"
-                android:textStyle="bold"
                 android:padding="10dp"
                 android:textColor="@android:color/holo_red_dark"/>
 

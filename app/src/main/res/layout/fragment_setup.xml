@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.bugthedebugger.petfeed_test.SetupFragment"
-    android:padding="50dp">
+    android:paddingTop="50dp"
+    android:paddingBottom="10dp">
 
 
     <LinearLayout

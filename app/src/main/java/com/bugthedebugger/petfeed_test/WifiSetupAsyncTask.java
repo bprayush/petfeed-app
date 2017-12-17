@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -46,6 +47,7 @@ public class WifiSetupAsyncTask extends AsyncTask<String, Void, Void> {
                     JSONObject jsonObject = new JSONObject(response);
 
                     String status = jsonObject.getString("status");
+                    Log.d("prayush", "got status: "+status);
 
                     if( status.equals("success") )
                     {

@@ -125,7 +125,7 @@ public class PetfeedActivity extends AppCompatActivity
         String petFeedConnectUrl = "https://prayush.karkhana.asia/test/schedule/get/status?email="+email+"&id="+String.valueOf(id);
 
         new IpScanner().execute();
-        new GlobalDevice(this).execute(petFeedConnectUrl);
+        new GlobalDevice(this, progressDialog).execute(petFeedConnectUrl);
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -229,17 +229,18 @@ public class PetfeedActivity extends AppCompatActivity
 
             try {
                 String clientIp = String.valueOf(getWLANipAddress("IPv4"));
-                //clientIp = clientIp.substring(0, clientIp.lastIndexOf("."));
-                //Log.d("prayuship", clientIp.replace("/", ""));
-                //Log.d("prayuship", String.valueOf(InetAddress.getByName("192.168.100.1").isReachable(10)));
+                clientIp = clientIp.substring(0, clientIp.lastIndexOf("."));
+                clientIp = clientIp.replace("/", "");
+                Log.d("prayuship", clientIp);
 
                 List<String> reachableHosts = new ArrayList<String>();
 
                 int timeout=10;
                 for (int i=2;i<255;i++){
-                    String host="192.168.100" + "." + i;
+                    String host=clientIp + "." + i;
+                    Log.d("prayuship", host);
                     if (InetAddress.getByName(host).isReachable(timeout)){
-                        //Log.d("prayuship", host + " is reachable");
+                        Log.d("prayuship", host + " is reachable");
                         reachableHosts.add(host);
                     }
                 }
@@ -283,7 +284,6 @@ public class PetfeedActivity extends AppCompatActivity
                     });
                     requestQueue.add(stringRequest);
                 }
-                progressDialog.dismiss();
                 //piIpAddress = local;
             } catch (UnknownHostException e) {
                 e.printStackTrace();

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -49,37 +50,29 @@ public class WifiSetupActivity extends AppCompatActivity {
         hasPiIpAddress = false;
         progressDialog = new ProgressDialog(wifiContext);
 
-        String ssid;
-        String key;
 
-        EditText ssidEt = findViewById(R.id.ssidEt);
-        EditText keyEt = findViewById(R.id.keyEt);
-
-        ssid = ssidEt.getText().toString();
-        key = keyEt.getText().toString();
+        final EditText ssidEt = findViewById(R.id.ssidEt);
+        final EditText keyEt = findViewById(R.id.keyEt);
 
         Button setWifiBtn = findViewById(R.id.setDeviceWifiBtn);
 
         setWifiBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if ( view.getId() == R.id.setDeviceWifiBtn )
-                    new IpScanner().execute();
+                if ( view.getId() == R.id.setDeviceWifiBtn ) {
+                    String ssid = ssidEt.getText().toString();
+                    String key = keyEt.getText().toString();
+
+                    final String wifiUrl = "/wifisetup?ssid="+ssid+"&key="+key;
+                    new IpScanner().execute(wifiUrl);
+                }
             }
         });
 
 
-
-        String wifiUrl = "/wifisetup?ssid="+ssid+"&key="+key;
-
-        if( hasPiIpAddress ) {
-            String setUpUrl = "http://"+piIpAddress+wifiUrl;
-            new WifiSetupAsyncTask(wifiContext, progressDialog).execute();
-        }
-
     }
 
-    public class IpScanner extends AsyncTask<Void, Void, Void> {
+    public class IpScanner extends AsyncTask<String, Void, Void> {
 
         InetAddress getWLANipAddress(String protocolVersion) throws SocketException {
             Enumeration<NetworkInterface> nets = NetworkInterface.getNetworkInterfaces();
@@ -103,26 +96,29 @@ public class WifiSetupActivity extends AppCompatActivity {
         }
 
         @Override
-        protected Void doInBackground(Void... voids) {
+        protected Void doInBackground(String... urls) {
+
+            final String wifiUrl = urls[0];
 
             try {
                 String clientIp = String.valueOf(getWLANipAddress("IPv4"));
-                //clientIp = clientIp.substring(0, clientIp.lastIndexOf("."));
-                //Log.d("prayuship", clientIp.replace("/", ""));
-                //Log.d("prayuship", String.valueOf(InetAddress.getByName("192.168.100.1").isReachable(10)));
+                clientIp = clientIp.substring(0, clientIp.lastIndexOf("."));
+                clientIp = clientIp.replace("/", "");
+                Log.d("prayuship", clientIp);
 
                 List<String> reachableHosts = new ArrayList<String>();
 
                 int timeout=10;
                 for (int i=2;i<255;i++){
-                    String host="192.168.100" + "." + i;
+                    String host=clientIp + "." + i;
+                    Log.d("prayuship", host);
                     if (InetAddress.getByName(host).isReachable(timeout)){
-                        //Log.d("prayuship", host + " is reachable");
+                        Log.d("prayuship", host + " is reachable");
                         reachableHosts.add(host);
                     }
                 }
 
-                RequestQueue requestQueue = Volley.newRequestQueue(wifiContext);
+                final RequestQueue requestQueue = Volley.newRequestQueue(wifiContext);
 
 
                 //Log.d("prayush", String.valueOf(reachableHosts.size()));
@@ -146,6 +142,43 @@ public class WifiSetupActivity extends AppCompatActivity {
                                             connection_method = d_connection;
                                             piIpAddress = host;
                                             hasPiIpAddress = true;
+                                            Log.d("prayuship", "Found my pi");
+                                            Log.d("prayuship", "Inside hasIpAddress");
+                                            StringRequest piRequest = new StringRequest(Request.Method.GET, "http://" +
+                                                    piIpAddress + wifiUrl, new Response.Listener<String>() {
+                                                @Override
+                                                public void onResponse(String response) {
+                                                    try {
+
+                                                        Log.d("prayuship", response);
+
+                                                        JSONObject jsonObject = new JSONObject(response);
+
+                                                        String status = jsonObject.getString("status");
+                                                        String message = jsonObject.getString("message");
+
+                                                        if( status.equals("success") )
+                                                        {
+                                                            Toast.makeText(wifiContext, message, Toast.LENGTH_SHORT).show();
+                                                            //Log.d("prayuship", "inside success");
+                                                        }
+                                                        else if( status.equals("error") )
+                                                        {
+                                                            Toast.makeText(wifiContext, message, Toast.LENGTH_SHORT).show();
+                                                        }
+
+                                                    } catch (JSONException e) {
+                                                        e.printStackTrace();
+                                                    }
+
+                                                }
+                                            }, new Response.ErrorListener() {
+                                                @Override
+                                                public void onErrorResponse(VolleyError error) {
+
+                                                }
+                                            });
+                                            requestQueue.add(piRequest);
                                         }
 
 
@@ -163,6 +196,7 @@ public class WifiSetupActivity extends AppCompatActivity {
                     requestQueue.add(stringRequest);
                 }
                 progressDialog.dismiss();
+
             } catch (UnknownHostException e) {
                 e.printStackTrace();
                 //Log.d("prayuship", "a");
@@ -178,16 +212,11 @@ public class WifiSetupActivity extends AppCompatActivity {
 
         @Override
         protected void onPreExecute() {
-            progressDialog.setMessage("Searching for device, please wait.");
+            progressDialog.setMessage("Setting up device wifi, please wait.");
             progressDialog.show();
             super.onPreExecute();
         }
 
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            if( !hasPiIpAddress )
-                Toast.makeText(wifiContext, "No device found.", Toast.LENGTH_SHORT).show();
-        }
     }
 
 }

@@ -1,5 +1,6 @@
 package com.bugthedebugger.petfeed_test;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -18,9 +19,11 @@ public class GlobalDevice extends AsyncTask<String, Void, Void> {
 
 
     Context context;
+    ProgressDialog progressDialog;
 
-    public GlobalDevice(Context context){
+    public GlobalDevice(Context context, ProgressDialog progressDialog){
         this.context = context;
+        this.progressDialog = progressDialog;
     }
 
 
@@ -44,6 +47,7 @@ public class GlobalDevice extends AsyncTask<String, Void, Void> {
             }
         });
 
+        progressDialog.dismiss();
         requestQueue.add(stringRequest);
 
         return null;
