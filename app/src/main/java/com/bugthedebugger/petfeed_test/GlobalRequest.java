@@ -2,6 +2,7 @@ package com.bugthedebugger.petfeed_test;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,14 +27,16 @@ public class GlobalRequest extends AsyncTask<String, Void, Void> {
     protected Void doInBackground(String... url) {
 
 
-        RequestQueue requestQueue = Volley.newRequestQueue(this.context);
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
 
-        String petfeedUrl = url[0];
+        final String petfeedUrl = url[0];
+
 
         StringRequest stringRequest = new StringRequest(Request.Method.GET, petfeedUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-
+                Log.d("prayush", petfeedUrl);
+                Log.d("prayush", response);
             }
         }, new Response.ErrorListener() {
             @Override

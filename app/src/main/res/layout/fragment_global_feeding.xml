@@ -4,10 +4,103 @@
     android:layout_height="match_parent"
     tools:context="com.bugthedebugger.petfeed_test.GlobalFeedingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:padding="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/globalConnectionll"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Connection:"
+                android:textSize="20dp"
+                android:padding="10dp"
+                android:textStyle="bold"
+                android:id="@+id/globalConnectionTv"/>
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_worldwide"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Global"
+                android:textSize="20dp"
+                android:padding="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/globalConnectionll"
+            android:gravity="center"
+            android:id="@+id/globalStatusll">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/globalTv"
+                android:text="@string/device_status"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:padding="10dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/globalStatusTv"
+                android:text="offline"
+                android:textSize="20dp"
+                android:padding="10dp"
+                android:textColor="@android:color/holo_red_dark"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#f0f0f0"
+            android:layout_below="@id/globalStatusll"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/globalStatusll"
+            android:layout_marginTop="10dp"
+            android:id="@+id/treatLl"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Give a treat:"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_treat"
+                android:text="Treat"
+                android:id="@+id/globalTreatBtn"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/treatLl"
+            android:layout_marginTop="5dp"/>
+
+    </RelativeLayout>
 
 </FrameLayout>

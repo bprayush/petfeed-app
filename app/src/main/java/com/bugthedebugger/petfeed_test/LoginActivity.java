@@ -140,6 +140,8 @@ public class LoginActivity extends AppCompatActivity {
                                     String pet = tempObject[0].getString("pet");
                                     int userId = tempObject[0].getInt("id");
 
+                                    Log.d("prayushid", String.valueOf(userId));
+
                                     Intent intent = new Intent(loginContext, PetfeedActivity.class);
                                     intent.putExtra("name", userName);
                                     intent.putExtra("email", email);

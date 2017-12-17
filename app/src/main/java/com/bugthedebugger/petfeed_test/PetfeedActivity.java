@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -54,6 +55,8 @@ public class PetfeedActivity extends AppCompatActivity
     String piIpAddress;
     String petName;
     ProgressDialog progressDialog;
+    String email;
+    int userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +66,7 @@ public class PetfeedActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-        piIpAddress= null;
+        piIpAddress="";
 
         progressDialog = new ProgressDialog(petfeedContext);
 
@@ -80,8 +83,8 @@ public class PetfeedActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         String name = getIntent().getStringExtra("name");
-        String email = getIntent().getStringExtra("email");
-        int id = getIntent().getIntExtra("id", 0);
+        email = getIntent().getStringExtra("email");
+        userId = getIntent().getIntExtra("id", 0);
         petName = getIntent().getStringExtra("pet");
 
         View headerLayout = navigationView.getHeaderView(0);
@@ -111,6 +114,16 @@ public class PetfeedActivity extends AppCompatActivity
 
                             global_device_status = jsonObject.getString("status");
                             //  Log.d("prayush", global_device_status);
+                            if (global_device_status.equals("online"))
+                            {
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(petfeedContext, message, Toast.LENGTH_SHORT).show();
+                            }
+                            else if( global_device_status.equals("error") )
+                            {
+                                String message = jsonObject.getString("message");
+                                Toast.makeText(petfeedContext, message, Toast.LENGTH_SHORT).show();
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -124,7 +137,8 @@ public class PetfeedActivity extends AppCompatActivity
 
         pusher.connect();
 
-        String petFeedConnectUrl = "https://prayush.karkhana.asia/test/schedule/get/status?email="+email+"&id="+String.valueOf(id);
+        String petFeedConnectUrl = "https://prayush.karkhana.asia/test/get/status?email="
+                +email+"&id="+String.valueOf(userId);
 
         new IpScanner().execute();
         new LocalRequest(this, progressDialog).execute(petFeedConnectUrl);
@@ -186,8 +200,11 @@ public class PetfeedActivity extends AppCompatActivity
 
             ft.add(R.id.fragment_content_layout, new SetupFragment());
             ft.commit();
-        } else if (id == R.id.nav_slideshow) {
-
+        } else if (id == R.id.nav_global) {
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.add(R.id.fragment_content_layout, new GlobalFeedingFragment(global_device_status, email, userId));
+            ft.commit();
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_send) {
@@ -252,28 +269,19 @@ public class PetfeedActivity extends AppCompatActivity
                 String clientIp = String.valueOf(getWLANipAddress("IPv4"));
                 clientIp = clientIp.substring(0, clientIp.lastIndexOf("."));
                 clientIp = clientIp.replace("/", "");
-                // Log.d("prayuship", clientIp);
+                 Log.d("prayuship", clientIp);
 
-                List<String> reachableHosts = new ArrayList<String>();
-
-                int timeout=10;
-                for (int i=2;i<255;i++){
-                    String host=clientIp + "." + i;
-                    // Log.d("prayuship", host);
-                    if (InetAddress.getByName(host).isReachable(timeout)){
-                        // Log.d("prayuship", host + " is reachable");
-                        reachableHosts.add(host);
-                    }
-                }
-
+                 List<String> reachableHosts = new ArrayList<String>();
                 RequestQueue requestQueue = Volley.newRequestQueue(petfeedContext);
 
-
-                //Log.d("prayush", String.valueOf(reachableHosts.size()));
-                for(int i=0; i<reachableHosts.size(); i++)
-                {
-                    final String host = reachableHosts.get(i);
-                    //Log.d("prayush", host);
+                int timeout=100;
+                for (int i=2;i<255;i++){
+                    final String host=clientIp + "." + i;
+                    Log.d("prayuship", host);
+                    if (InetAddress.getByName(host).isReachable(timeout)){
+                         Log.d("prayuship", host + " is reachable");
+                        reachableHosts.add(host);
+                    }
                     StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://" + host,
                             new Response.Listener<String>() {
                                 @Override
@@ -281,7 +289,7 @@ public class PetfeedActivity extends AppCompatActivity
                                     //Log.d("prayush", response);
                                     try {
                                         JSONObject jsonObject = new JSONObject(response);
-
+                                        Log.d("prayush", response);
                                         String d_status = jsonObject.getString("status");
                                         String d_connection = jsonObject.getString("connection");
 
@@ -301,14 +309,51 @@ public class PetfeedActivity extends AppCompatActivity
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
 
-                            }
-                    });
+                                }
+                            });
                     requestQueue.add(stringRequest);
+                    if( !piIpAddress.isEmpty() )
+                        break;
                 }
+
+
+                //Log.d("prayush", String.valueOf(reachableHosts.size()));
+//                for(int i=0; i<reachableHosts.size(); i++)
+//                {
+//                    final String host = reachableHosts.get(i);
+//                    //Log.d("prayush", host);
+//                    StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://" + host,
+//                            new Response.Listener<String>() {
+//                                @Override
+//                                public void onResponse(String response) {
+//                                    //Log.d("prayush", response);
+//                                    try {
+//                                        JSONObject jsonObject = new JSONObject(response);
+//
+//                                        String d_status = jsonObject.getString("status");
+//                                        String d_connection = jsonObject.getString("connection");
+//
+//                                        if (d_status.equals("online")) {
+//                                            local_device_status = d_status;
+//                                            connection_method = d_connection;
+//                                            piIpAddress = host;
+//                                        }
+//
+//
+//                                    } catch (JSONException e) {
+//                                        e.printStackTrace();
+//                                    }
+//                                }
+//                            },
+//                            new Response.ErrorListener() {
+//                                @Override
+//                                public void onErrorResponse(VolleyError error) {
+//
+//                            }
+//                    });
+//                    requestQueue.add(stringRequest);
+//                }
                 //piIpAddress = local;
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-                //Log.d("prayuship", "a");
             } catch (SocketException e) {
                 e.printStackTrace();
                 //Log.d("prayuship", "b");
