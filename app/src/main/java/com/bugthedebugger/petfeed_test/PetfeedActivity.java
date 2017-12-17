@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -63,6 +62,9 @@ public class PetfeedActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        piIpAddress= null;
+
         progressDialog = new ProgressDialog(petfeedContext);
 
         local_device_status = "offline";
@@ -92,7 +94,7 @@ public class PetfeedActivity extends AppCompatActivity
 
         final String channel_name = "petfeed";
         final String event_name = "App\\Events\\eventTrigger";
-        Log.d("prayush", event_name);
+        // Log.d("prayush", event_name);
 
         Pusher pusher = new Pusher("0053280ec440a78036bc");
         Channel channel = pusher.subscribe(channel_name);
@@ -125,7 +127,7 @@ public class PetfeedActivity extends AppCompatActivity
         String petFeedConnectUrl = "https://prayush.karkhana.asia/test/schedule/get/status?email="+email+"&id="+String.valueOf(id);
 
         new IpScanner().execute();
-        new GlobalDevice(this, progressDialog).execute(petFeedConnectUrl);
+        new LocalRequest(this, progressDialog).execute(petFeedConnectUrl);
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -188,10 +190,29 @@ public class PetfeedActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
-
         } else if (id == R.id.nav_send) {
 
+        } else if (id == R.id.petfeed_home_nv){
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.add(R.id.fragment_content_layout, new WelcomeFragment(petName));
+            ft.commit();
+        } else if (id == R.id.restart){
+            if( !piIpAddress.isEmpty() ){
+                String restartUrl = "http://"+piIpAddress+"/restart";
+                new GlobalRequest(petfeedContext).execute(restartUrl);
+            }
+            else{
+                Toast.makeText(petfeedContext, "Could not find device in local network.", Toast.LENGTH_SHORT).show();
+            }
+        } else if (id == R.id.power_off){
+            if( !piIpAddress.isEmpty() ){
+                String shutdownUrl = "http://"+piIpAddress+"/shutdown";
+                new GlobalRequest(petfeedContext).execute(shutdownUrl);
+            }
+            else{
+                Toast.makeText(petfeedContext, "Could not find device in local network.", Toast.LENGTH_SHORT).show();
+            }
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -231,16 +252,16 @@ public class PetfeedActivity extends AppCompatActivity
                 String clientIp = String.valueOf(getWLANipAddress("IPv4"));
                 clientIp = clientIp.substring(0, clientIp.lastIndexOf("."));
                 clientIp = clientIp.replace("/", "");
-                Log.d("prayuship", clientIp);
+                // Log.d("prayuship", clientIp);
 
                 List<String> reachableHosts = new ArrayList<String>();
 
                 int timeout=10;
                 for (int i=2;i<255;i++){
                     String host=clientIp + "." + i;
-                    Log.d("prayuship", host);
+                    // Log.d("prayuship", host);
                     if (InetAddress.getByName(host).isReachable(timeout)){
-                        Log.d("prayuship", host + " is reachable");
+                        // Log.d("prayuship", host + " is reachable");
                         reachableHosts.add(host);
                     }
                 }

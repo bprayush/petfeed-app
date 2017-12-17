@@ -104,16 +104,16 @@ public class WifiSetupActivity extends AppCompatActivity {
                 String clientIp = String.valueOf(getWLANipAddress("IPv4"));
                 clientIp = clientIp.substring(0, clientIp.lastIndexOf("."));
                 clientIp = clientIp.replace("/", "");
-                Log.d("prayuship", clientIp);
+                // Log.d("prayuship", clientIp);
 
                 List<String> reachableHosts = new ArrayList<String>();
 
                 int timeout=10;
                 for (int i=2;i<255;i++){
                     String host=clientIp + "." + i;
-                    Log.d("prayuship", host);
+                    // Log.d("prayuship", host);
                     if (InetAddress.getByName(host).isReachable(timeout)){
-                        Log.d("prayuship", host + " is reachable");
+                        // Log.d("prayuship", host + " is reachable");
                         reachableHosts.add(host);
                     }
                 }
@@ -142,15 +142,15 @@ public class WifiSetupActivity extends AppCompatActivity {
                                             connection_method = d_connection;
                                             piIpAddress = host;
                                             hasPiIpAddress = true;
-                                            Log.d("prayuship", "Found my pi");
-                                            Log.d("prayuship", "Inside hasIpAddress");
+                                            // Log.d("prayuship", "Found my pi");
+                                            // Log.d("prayuship", "Inside hasIpAddress");
                                             StringRequest piRequest = new StringRequest(Request.Method.GET, "http://" +
                                                     piIpAddress + wifiUrl, new Response.Listener<String>() {
                                                 @Override
                                                 public void onResponse(String response) {
                                                     try {
 
-                                                        Log.d("prayuship", response);
+                                                        // Log.d("prayuship", response);
 
                                                         JSONObject jsonObject = new JSONObject(response);
 

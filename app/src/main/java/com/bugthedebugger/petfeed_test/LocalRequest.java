@@ -15,13 +15,13 @@ import com.android.volley.toolbox.Volley;
  * Created by bprayush on 12/15/17.
  */
 
-public class GlobalDevice extends AsyncTask<String, Void, Void> {
+public class LocalRequest extends AsyncTask<String, Void, Void> {
 
 
     Context context;
     ProgressDialog progressDialog;
 
-    public GlobalDevice(Context context, ProgressDialog progressDialog){
+    public LocalRequest(Context context, ProgressDialog progressDialog){
         this.context = context;
         this.progressDialog = progressDialog;
     }

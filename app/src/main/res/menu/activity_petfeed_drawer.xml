@@ -5,9 +5,13 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/device_status_nv"
+            android:id="@+id/petfeed_home_nv"
             android:icon="@drawable/ic_home"
-            android:title="Home" />
+            android:title="Home"/>
+        <item
+            android:id="@+id/device_status_nv"
+            android:icon="@drawable/ic_satellite"
+            android:title="Device Status" />
         <item
             android:id="@+id/device_setup"
             android:icon="@drawable/ic_setup"
@@ -22,16 +26,25 @@
             android:title="Connect Local" />
     </group>
 
+    <item android:title="Power option">
+        <menu>
+            <item
+                android:id="@+id/restart"
+                android:icon="@drawable/ic_restart"
+                android:title="Restart"/>
+            <item
+                android:id="@+id/power_off"
+                android:icon="@drawable/ic_off"
+                android:title="Power off"/>
+        </menu>
+    </item>
+
     <item android:title="Communicate">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
                 android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:icon="@drawable/ic_feedback"
+                android:title="Feedback" />
         </menu>
     </item>
 
