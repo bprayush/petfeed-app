@@ -16,11 +16,10 @@
             android:gravity="center">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="Connection:"
                 android:textSize="20dp"
-                android:padding="10dp"
                 android:textStyle="bold"
                 android:id="@+id/globalConnectionTv"/>
 
@@ -46,13 +45,11 @@
             android:id="@+id/globalStatusll">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/globalTv"
                 android:text="@string/device_status"
-                android:textStyle="bold"
                 android:textSize="20dp"
-                android:padding="10dp"/>
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -69,18 +66,19 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#f0f0f0"
+            android:layout_marginTop="10dp"
             android:layout_below="@id/globalStatusll"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/globalStatusll"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:id="@+id/treatLl"
             android:gravity="center">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:text="Give a treat:"
                 android:textSize="20dp"
@@ -99,7 +97,70 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/treatLl"
-            android:layout_marginTop="5dp"/>
+            android:background="#f0f0f0"
+            android:layout_marginTop="10dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#f0f0f0"
+            android:layout_below="@+id/treatLl"
+            android:layout_marginTop="10dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/treatLl"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:id="@+id/setScheduleLL">
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="Set Schedule:"
+                android:textStyle="bold"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Set"
+                android:drawableStart="@drawable/ic_event"
+                android:id="@+id/setScheduleBtn"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/setScheduleLL"
+            android:id="@+id/viewScheduleLl">
+
+            <TextView
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:text="View Schedule:"/>
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/viewScheduleBtn"
+                android:text="View"
+                android:drawableStart="@drawable/ic_calendar"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#f0f0f0"
+            android:layout_below="@+id/viewScheduleLl"
+            android:layout_marginTop="10dp"/>
 
     </RelativeLayout>
 

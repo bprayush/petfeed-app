@@ -108,7 +108,7 @@ public class WifiSetupActivity extends AppCompatActivity {
 
                 List<String> reachableHosts = new ArrayList<String>();
 
-                int timeout=10;
+                int timeout=100;
                 for (int i=2;i<255;i++){
                     String host=clientIp + "." + i;
                     // Log.d("prayuship", host);

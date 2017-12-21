@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 /**
@@ -57,11 +58,17 @@ public class GlobalFeedingFragment extends Fragment {
         treatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if( view.getId() == R.id.globalTreatBtn )
-                {
-                    String treatUrl = "https://prayush.karkhana.asia/test/treat?email="+
-                            email+"&id="+id;
-                    new GlobalRequest(getActivity().getApplicationContext()).execute(treatUrl);
+                if( view.getId() == R.id.globalTreatBtn ) {
+                    if (status.equals("online")) {
+                        String treatUrl = "https://prayush.karkhana.asia/test/treat?email=" +
+                                email + "&id=" + id;
+                        new GlobalRequest(getActivity().getApplicationContext()).execute(treatUrl);
+
+                    }
+                    else{
+                        Toast.makeText(getActivity().getApplicationContext(),
+                                "Looks like your device is offline.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

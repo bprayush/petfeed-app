@@ -38,7 +38,6 @@ import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
@@ -112,14 +111,15 @@ public class PetfeedActivity extends AppCompatActivity
                         try {
                             JSONObject jsonObject = new JSONObject(data);
 
-                            global_device_status = jsonObject.getString("status");
+                            String gstatus = jsonObject.getString("status");
                             //  Log.d("prayush", global_device_status);
-                            if (global_device_status.equals("online"))
+                            if (gstatus.equals("online"))
                             {
+                                global_device_status = gstatus;
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(petfeedContext, message, Toast.LENGTH_SHORT).show();
                             }
-                            else if( global_device_status.equals("error") )
+                            else if( gstatus.equals("error") )
                             {
                                 String message = jsonObject.getString("message");
                                 Toast.makeText(petfeedContext, message, Toast.LENGTH_SHORT).show();
@@ -141,7 +141,7 @@ public class PetfeedActivity extends AppCompatActivity
                 +email+"&id="+String.valueOf(userId);
 
         new IpScanner().execute();
-        new LocalRequest(this, progressDialog).execute(petFeedConnectUrl);
+        new GlobalRequestWithProgress(this, progressDialog).execute(petFeedConnectUrl);
 
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
@@ -205,8 +205,11 @@ public class PetfeedActivity extends AppCompatActivity
             FragmentTransaction ft = fm.beginTransaction();
             ft.add(R.id.fragment_content_layout, new GlobalFeedingFragment(global_device_status, email, userId));
             ft.commit();
-        } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.nav_local) {
+            FragmentManager fm = getSupportFragmentManager();
+            FragmentTransaction ft = fm.beginTransaction();
+            ft.add(R.id.fragment_content_layout, new LocalFeedingFragment(local_device_status, piIpAddress));
+            ft.commit();
         } else if (id == R.id.nav_send) {
 
         } else if (id == R.id.petfeed_home_nv){
@@ -274,7 +277,7 @@ public class PetfeedActivity extends AppCompatActivity
                  List<String> reachableHosts = new ArrayList<String>();
                 RequestQueue requestQueue = Volley.newRequestQueue(petfeedContext);
 
-                int timeout=100;
+                int timeout=10;
                 for (int i=2;i<255;i++){
                     final String host=clientIp + "." + i;
                     Log.d("prayuship", host);
