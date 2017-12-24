@@ -12,6 +12,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,6 +59,7 @@ public class GlobalFeedingFragment extends Fragment {
 
 
         Button treatBtn = view.findViewById(R.id.globalTreatBtn);
+        Button setScheduleBtn = view.findViewById(R.id.setScheduleBtn);
 
         treatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +78,26 @@ public class GlobalFeedingFragment extends Fragment {
                 }
             }
         });
+
+        setScheduleBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if( view.getId() == R.id.setScheduleBtn ){
+
+                    JSONObject jsonObject = null;
+                    try {
+                        jsonObject = new JSONObject("{\"data\":\"prayush\"}");
+                        new JsonRequest(getActivity().getApplicationContext(),
+                                jsonObject).execute("https://prayush.karkhana.asia/test/schedule/set");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    //
+                }
+            }
+        });
+
 
         return view;
     }
