@@ -27,4 +27,6 @@
         <br />If this is your first time logging in to the device, power on your device and head over to setup to setup your device.</string>
     <string name="hot_spot_info">Before setting device wifi, create a hotpost with following credentials.</string>
     <string name="preference_file_key">petfeed_login_creds</string>
+    <string name="morningTime">10:00</string>
+    <string name="eveningTime">22:00</string>
 </resources>

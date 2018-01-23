@@ -63,7 +63,7 @@ public class LocalFeedingFragment extends Fragment {
                     else
                     {
                         Toast.makeText(getActivity().getApplicationContext(),
-                                "Could not find device.", Toast.LENGTH_SHORT).show();
+                                "Could not find device in local network.", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

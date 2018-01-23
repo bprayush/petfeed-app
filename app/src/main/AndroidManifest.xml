@@ -23,7 +23,9 @@
             android:label="@string/title_activity_petfeed"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SignupActivity" />
-        <activity android:name=".WifiSetupActivity"></activity>
+        <activity android:name=".WifiSetupActivity" />
+        <activity android:name=".SetSchedulesActivity"
+            android:label="Set Schedule"/>
     </application>
 
 </manifest>

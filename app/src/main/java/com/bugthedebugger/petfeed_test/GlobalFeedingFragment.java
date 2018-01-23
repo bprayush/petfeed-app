@@ -2,9 +2,11 @@ package com.bugthedebugger.petfeed_test;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -83,17 +85,29 @@ public class GlobalFeedingFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if( view.getId() == R.id.setScheduleBtn ){
-
+                    Intent intent = new Intent(getActivity().getApplicationContext(),
+                            SetSchedulesActivity.class);
+                    intent.putExtra("user", email);
+                    startActivity(intent);
+                    /*
+                    Log.d("prayush", "Inside set schedule");
                     JSONObject jsonObject = null;
                     try {
-                        jsonObject = new JSONObject("{\"data\":\"prayush\"}");
+                        jsonObject = new JSONObject();
+                        jsonObject.put("data", "prayush");
+                        jsonObject.put("email", email);
+                        jsonObject.put("id", id);
+//                        new JsonRequest(getActivity().getApplicationContext(),
+//                                jsonObject).execute("https://prayush.karkhana.asia/test/schedule/set");
                         new JsonRequest(getActivity().getApplicationContext(),
-                                jsonObject).execute("https://prayush.karkhana.asia/test/schedule/set");
+                                jsonObject).execute("http://192.168.100.236:8000/test/schedule/set");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    */
                 }else{
-                    //
+                    Toast.makeText(getActivity().getApplicationContext(),
+                            "Looks like your device is offline.", Toast.LENGTH_SHORT).show();
                 }
             }
         });

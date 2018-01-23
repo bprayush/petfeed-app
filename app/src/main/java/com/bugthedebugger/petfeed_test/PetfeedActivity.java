@@ -272,24 +272,24 @@ public class PetfeedActivity extends AppCompatActivity
                 String clientIp = String.valueOf(getWLANipAddress("IPv4"));
                 clientIp = clientIp.substring(0, clientIp.lastIndexOf("."));
                 clientIp = clientIp.replace("/", "");
-                 Log.d("prayuship", clientIp);
+                Log.d("prayuship", clientIp);
 
-                 List<String> reachableHosts = new ArrayList<String>();
+                List<String> reachableHosts = new ArrayList<String>();
                 RequestQueue requestQueue = Volley.newRequestQueue(petfeedContext);
 
-                int timeout=10;
-                for (int i=2;i<255;i++){
+                int timeout=100;
+                for (int i=0;i<255;i++){
                     final String host=clientIp + "." + i;
                     Log.d("prayuship", host);
                     if (InetAddress.getByName(host).isReachable(timeout)){
-                         Log.d("prayuship", host + " is reachable");
+                        Log.d("prayuship", host + " is reachable");
                         reachableHosts.add(host);
                     }
                     StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://" + host,
                             new Response.Listener<String>() {
                                 @Override
                                 public void onResponse(String response) {
-                                    //Log.d("prayush", response);
+                                    Log.d("prayush response", response);
                                     try {
                                         JSONObject jsonObject = new JSONObject(response);
                                         Log.d("prayush", response);
@@ -311,52 +311,51 @@ public class PetfeedActivity extends AppCompatActivity
                             new Response.ErrorListener() {
                                 @Override
                                 public void onErrorResponse(VolleyError error) {
-
+                                    // Log.d("prayush response", error.getMessage());
                                 }
                             });
                     requestQueue.add(stringRequest);
-                    if( !piIpAddress.isEmpty() )
-                        break;
                 }
 
+/*
+                Log.d("prayush", String.valueOf(reachableHosts.size()));
+                for(int i=0; i<reachableHosts.size(); i++)
+                {
+                    final String host = reachableHosts.get(i);
+                    //Log.d("prayush", host);
+                    StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://" + host,
+                            new Response.Listener<String>() {
+                                @Override
+                                public void onResponse(String response) {
+                                    //Log.d("prayush", response);
+                                    try {
+                                        JSONObject jsonObject = new JSONObject(response);
 
-                //Log.d("prayush", String.valueOf(reachableHosts.size()));
-//                for(int i=0; i<reachableHosts.size(); i++)
-//                {
-//                    final String host = reachableHosts.get(i);
-//                    //Log.d("prayush", host);
-//                    StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://" + host,
-//                            new Response.Listener<String>() {
-//                                @Override
-//                                public void onResponse(String response) {
-//                                    //Log.d("prayush", response);
-//                                    try {
-//                                        JSONObject jsonObject = new JSONObject(response);
-//
-//                                        String d_status = jsonObject.getString("status");
-//                                        String d_connection = jsonObject.getString("connection");
-//
-//                                        if (d_status.equals("online")) {
-//                                            local_device_status = d_status;
-//                                            connection_method = d_connection;
-//                                            piIpAddress = host;
-//                                        }
-//
-//
-//                                    } catch (JSONException e) {
-//                                        e.printStackTrace();
-//                                    }
-//                                }
-//                            },
-//                            new Response.ErrorListener() {
-//                                @Override
-//                                public void onErrorResponse(VolleyError error) {
-//
-//                            }
-//                    });
-//                    requestQueue.add(stringRequest);
-//                }
-                //piIpAddress = local;
+                                        String d_status = jsonObject.getString("status");
+                                        String d_connection = jsonObject.getString("connection");
+
+                                        if (d_status.equals("online")) {
+                                            local_device_status = d_status;
+                                            connection_method = d_connection;
+                                            piIpAddress = host;
+                                        }
+
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                }
+                            },
+                            new Response.ErrorListener() {
+                                @Override
+                                public void onErrorResponse(VolleyError error) {
+
+                            }
+                    });
+                    requestQueue.add(stringRequest);
+                }
+                piIpAddress = local;
+*/
             } catch (SocketException e) {
                 e.printStackTrace();
                 //Log.d("prayuship", "b");
