@@ -234,7 +234,7 @@ public class SetSchedulesActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    new JsonRequest(context, requestObject).execute("http://192.168.100.236:8000/test/schedule/set");
+                    new JsonRequest(context, requestObject).execute("https://prayush.karkhana.asia/test/schedule/set");
                     jsonArray = null;
                     requestObject = null;
                     tempObject = null;
