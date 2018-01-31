@@ -4,344 +4,385 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.bugthedebugger.petfeed_test.SetSchedulesActivity"
-    android:padding="20dp">
+    android:padding="20dp"
+    android:scrollbarAlwaysDrawVerticalTrack="true">
 
-
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/sundaySetScheduleLL"
-        android:padding="10dp">
+        android:layout_height="match_parent">
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sunday:"
-            android:textSize="20dp"
-            android:textStyle="bold"/>
+            android:layout_height="wrap_content">
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/sundaySetScheduleLL"
+                android:padding="10dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/sundaySetScheduleLL"
-        android:padding="10dp"
-        android:id="@+id/sundaySetScheduleMTimeLL">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Sunday:"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="time"
-            android:hint="@string/morningTime"
-            android:id="@+id/sundaySetScheduleMTime"/>
+            </LinearLayout>
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/sundaySetScheduleLL"
+                android:padding="10dp"
+                android:id="@+id/sundaySetScheduleMTimeLL">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/sundaySetScheduleMTimeLL"
-        android:padding="10dp"
-        android:id="@+id/sundaySetScheduleETimeLL">
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="time"
+                    android:hint="@string/morningTime"
+                    android:id="@+id/sundaySetScheduleMTime"/>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/sundaySetScheduleETime"
-            android:inputType="time"
-            android:hint="@string/eveningTime"/>
+            </LinearLayout>
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sundaySetScheduleMTimeLL"
+                android:padding="10dp"
+                android:id="@+id/sundaySetScheduleETimeLL">
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sundaySetScheduleETime"
+                    android:inputType="time"
+                    android:hint="@string/eveningTime"/>
+
+            </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/sundaySetScheduleETimeLL"
-        android:padding="10dp"
-        android:id="@+id/mondaySetScheduleLL">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sundaySetScheduleETimeLL"
+                android:padding="10dp"
+                android:id="@+id/mondaySetScheduleLL">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Monday:"
-            android:textSize="20dp"
-            android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Monday:"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/mondaySetScheduleLL"
-        android:id="@+id/mondaySetScheduleMTimeLL"
-        android:padding="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mondaySetScheduleLL"
+                android:id="@+id/mondaySetScheduleMTimeLL"
+                android:padding="10dp">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/morningTime"
-            android:inputType="time"
-            android:id="@+id/mondaySetScheduleMTime"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/morningTime"
+                    android:inputType="time"
+                    android:id="@+id/mondaySetScheduleMTime"/>
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/mondaySetScheduleMTimeLL"
-        android:padding="10dp"
-        android:id="@+id/mondaySetScheduleETimeLL">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/mondaySetScheduleMTimeLL"
+                android:padding="10dp"
+                android:id="@+id/mondaySetScheduleETimeLL">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="time"
-            android:hint="@string/eveningTime"
-            android:id="@+id/mondaySetScheduleETime"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="time"
+                    android:hint="@string/eveningTime"
+                    android:id="@+id/mondaySetScheduleETime"/>
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/mondaySetScheduleETimeLL"
-        android:id="@+id/tuesdaySetScheduleLL"
-        android:padding="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/mondaySetScheduleETimeLL"
+                android:id="@+id/tuesdaySetScheduleLL"
+                android:padding="10dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tuesday:"
-            android:textSize="20dp"
-            android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tuesday:"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tuesdaySetScheduleLL"
-        android:padding="10dp"
-        android:id="@+id/tuesdaySetScheduleMTimeLL">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tuesdaySetScheduleLL"
+                android:padding="10dp"
+                android:id="@+id/tuesdaySetScheduleMTimeLL">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="time"
-            android:hint="@string/morningTime"
-            android:id="@+id/tuesdaySetScheduleMTime"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="time"
+                    android:hint="@string/morningTime"
+                    android:id="@+id/tuesdaySetScheduleMTime"/>
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tuesdaySetScheduleMTimeLL"
-        android:padding="10dp"
-        android:id="@+id/tuesdaySetScheduleETimeLL">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tuesdaySetScheduleMTimeLL"
+                android:padding="10dp"
+                android:id="@+id/tuesdaySetScheduleETimeLL">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="time"
-            android:hint="@string/eveningTime"
-            android:id="@+id/tuesdaySetScheduleETime"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="time"
+                    android:hint="@string/eveningTime"
+                    android:id="@+id/tuesdaySetScheduleETime"/>
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_below="@+id/tuesdaySetScheduleETimeLL"
-        android:id="@+id/wednesdaySetScheduleLL">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_below="@+id/tuesdaySetScheduleETimeLL"
+                android:id="@+id/wednesdaySetScheduleLL">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Wednesday:"
-            android:textSize="20dp"
-            android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Wednesday:"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/wednesdaySetScheduleLL"
-        android:padding="10dp"
-        android:id="@+id/wednesdaySetScheduleMTimeLL">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/wednesdaySetScheduleLL"
+                android:padding="10dp"
+                android:id="@+id/wednesdaySetScheduleMTimeLL">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/morningTime"
-            android:inputType="time"
-            android:id="@+id/wednesdaySetScheduleMTime"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/morningTime"
+                    android:inputType="time"
+                    android:id="@+id/wednesdaySetScheduleMTime"/>
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/wednesdaySetScheduleMTimeLL"
-        android:padding="10dp"
-        android:id="@+id/wednesdaySetScheduleETimeLL">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/wednesdaySetScheduleMTimeLL"
+                android:padding="10dp"
+                android:id="@+id/wednesdaySetScheduleETimeLL">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/eveningTime"
-            android:inputType="time"
-            android:id="@+id/wednesdaySetScheduleETime"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/eveningTime"
+                    android:inputType="time"
+                    android:id="@+id/wednesdaySetScheduleETime"/>
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_below="@+id/wednesdaySetScheduleETimeLL"
-        android:id="@+id/thursdaySetScheduleLL">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_below="@+id/wednesdaySetScheduleETimeLL"
+                android:id="@+id/thursdaySetScheduleLL">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Thursday:"
-            android:textSize="20dp"
-            android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Thursday:"
+                    android:textSize="20dp"
+                    android:textStyle="bold"/>
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/thursdaySetScheduleLL"
-        android:padding="10dp"
-        android:id="@+id/thursdaySetScheduleMTimeLL">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/thursdaySetScheduleLL"
+                android:padding="10dp"
+                android:id="@+id/thursdaySetScheduleMTimeLL">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/morningTime"
-            android:inputType="time"
-            android:id="@+id/thursdaySetScheduleMTime"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/morningTime"
+                    android:inputType="time"
+                    android:id="@+id/thursdaySetScheduleMTime"/>
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/thursdaySetScheduleMTimeLL"
-        android:padding="10dp"
-        android:id="@+id/thursdaySetScheduleETimeLL">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/thursdaySetScheduleMTimeLL"
+                android:padding="10dp"
+                android:id="@+id/thursdaySetScheduleETimeLL">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/eveningTime"
-            android:inputType="time"
-            android:id="@+id/thursdaySetScheduleETime"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/eveningTime"
+                    android:inputType="time"
+                    android:id="@+id/thursdaySetScheduleETime"/>
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/thursdaySetScheduleETimeLL"
-        android:padding="10dp"
-        android:id="@+id/fridaySetScheduleLL">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/thursdaySetScheduleETimeLL"
+                android:padding="10dp"
+                android:id="@+id/fridaySetScheduleLL">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Friday:"
-            android:textStyle="bold"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:text="Friday:"
+                    android:textStyle="bold"/>
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_below="@+id/fridaySetScheduleLL"
-        android:id="@+id/fridaySetScheduleMTimeLL">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_below="@+id/fridaySetScheduleLL"
+                android:id="@+id/fridaySetScheduleMTimeLL">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/morningTime"
-            android:id="@+id/fridaySetScheduleMTime"
-            android:inputType="time"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/morningTime"
+                    android:id="@+id/fridaySetScheduleMTime"
+                    android:inputType="time"/>
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:id="@+id/fridaySetScheduleETimeLL"
-        android:layout_below="@+id/fridaySetScheduleMTimeLL">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:id="@+id/fridaySetScheduleETimeLL"
+                android:layout_below="@+id/fridaySetScheduleMTimeLL">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/eveningTime"
-            android:id="@+id/fridaySetScheduleETime"
-            android:inputType="time"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/eveningTime"
+                    android:id="@+id/fridaySetScheduleETime"
+                    android:inputType="time"/>
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_below="@id/fridaySetScheduleETimeLL"
-        android:id="@+id/saturdaySetScheduleLL">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_below="@id/fridaySetScheduleETimeLL"
+                android:id="@+id/saturdaySetScheduleLL">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:text="Saturday:"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    android:text="Saturday:"/>
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_below="@+id/saturdaySetScheduleLL"
-        android:id="@+id/saturdaySetScheduleMTimeLL">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_below="@+id/saturdaySetScheduleLL"
+                android:id="@+id/saturdaySetScheduleMTimeLL">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/morningTime"
-            android:id="@+id/saturdaySetScheduleMTime"
-            android:inputType="time"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/morningTime"
+                    android:id="@+id/saturdaySetScheduleMTime"
+                    android:inputType="time"/>
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_below="@+id/saturdaySetScheduleMTimeLL"
-        android:id="@+id/saturdaySetScheduleETimeLL">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_below="@+id/saturdaySetScheduleMTimeLL"
+                android:id="@+id/saturdaySetScheduleETimeLL">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/eveningTime"
-            android:inputType="time"
-            android:id="@+id/saturdaySetScheduleETime"/>
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/eveningTime"
+                    android:inputType="time"
+                    android:id="@+id/saturdaySetScheduleETime"/>
 
-    </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/saturdaySetScheduleETimeLL"
+                android:id="@+id/overrideExistingLL"
+                android:padding="10dp">
+
+                <CheckBox
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:id="@+id/overrideExistingCB"
+                    android:text="Override Existing Schedule"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/overrideExistingLL"
+                android:padding="10dp"
+                android:gravity="center">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/saveScheduleBtn"
+                    android:text="Save"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

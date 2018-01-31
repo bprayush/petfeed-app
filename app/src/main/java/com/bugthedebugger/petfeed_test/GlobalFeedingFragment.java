@@ -88,6 +88,7 @@ public class GlobalFeedingFragment extends Fragment {
                     Intent intent = new Intent(getActivity().getApplicationContext(),
                             SetSchedulesActivity.class);
                     intent.putExtra("user", email);
+                    intent.putExtra("id", id);
                     startActivity(intent);
                     /*
                     Log.d("prayush", "Inside set schedule");
